@@ -19,9 +19,12 @@ const elementAdding=(/*arr,*/doc,person)=>{
     const listhead=document.createElement('ul')
 
     //using form.elements and arrays
-     Array.from(person).map((input,_i,_formElements)=>{
+    Array.from(person).map((input,_i,_formElements)=>{
         if(input.value){
-            const li=renderItem(input.name,input.value)
+            let value=input.value
+            if(input.type==='color')
+                value=renderColor(value).outerHTML
+            const li=renderItem(input.name,value)
             listhead.appendChild(li)
         }
     })
@@ -68,7 +71,7 @@ const handleSubmit= (ev) => {
     const form=ev.target
     const details=document.querySelector('.details')
 
-    //hard code things
+    //hard code things in object
     /*const person = {
         personName: form.name.value,
         hairColor: renderColor(form.hairColor.value).outerHTML,
@@ -76,6 +79,7 @@ const handleSubmit= (ev) => {
         birthplace: form.birthplace.value,
     }*/
     
+    //hard code things
     //const personName=form.personName.value
     //const hairColor=form.hairColor.value
     /*const age=form.age.value
