@@ -1,4 +1,4 @@
-(function(){
+{
     const personForm=document.querySelector('form')
 
     const renderColor = (hairColor)=>{
@@ -112,4 +112,4 @@
     }
 
     personForm.addEventListener('submit',handleSubmit)
-})()
+}
