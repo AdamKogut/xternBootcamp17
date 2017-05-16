@@ -1,22 +1,28 @@
-{
-    const personForm=document.querySelector('form')
+const App={
+    
 
-    const renderColor = (hairColor)=>{
+    init(){
+        const personForm=document.querySelector('form')
+        personForm.addEventListener('submit',this.handleSubmit.bind(this))
+        //this.handlesubmit.bind(this) can also be (ev)=>this.handleSubmit(ev)
+    },
+
+    renderColor(hairColor){
         const colorDiv=document.createElement('div')
         //colorDiv.innerHTML=hairColor
         colorDiv.style.backgroundColor=hairColor
         colorDiv.style.height='50px'
         colorDiv.style.width='100px'
         return colorDiv
-    }
+    },
 
-    const renderItem = (name,value)=>{
+    renderItem(name,value){
         const list=document.createElement('li')
         list.innerHTML=`${name}: ${value}`
         return list
-    }
+    },
 
-    const elementAdding=(/*arr,*/doc,person)=>{
+    elementAdding(/*arr,*/doc,person){
         const listhead=document.createElement('ul')
 
         //using form.elements and arrays
@@ -24,11 +30,11 @@
             if(input.value){
                 let value=input.value
                 if(input.type==='color')
-                    value=renderColor(value).outerHTML
-                const li=renderItem(input.name,value)
+                    value=this.renderColor(value).outerHTML
+                const li=this.renderItem(input.name,value)
                 listhead.appendChild(li)
             }
-        })
+        }),
         //using maps
         /*Object.keys(person).map((key,i,keys)=>{
             const li=renderItem(key,person[key])
@@ -65,9 +71,9 @@
             listhead.appendChild(ema)
         }*/
         doc.appendChild(listhead)
-    }
+    },
 
-    const handleSubmit= (ev) => {
+    handleSubmit (ev) {
         ev.preventDefault()
         const form=ev.target
         const details=document.querySelector('.details')
@@ -100,7 +106,7 @@
         const birthWords=document.createElement('li')
         birthWords.textContent='Birthplace: '+birthplace*/
 
-        elementAdding(/*form*/details,form.elements)
+        this.elementAdding(/*form*/details,form.elements)
         //using innerHTML
         /*details.innerHTML=`
             <ul>
@@ -109,7 +115,6 @@
                 <li>Age: ${age}</li>
                 <li>Birthplace ${birthplace}</li>
             </ul>`*/
-    }
-
-    personForm.addEventListener('submit',handleSubmit)
+    },
 }
+App.init()
