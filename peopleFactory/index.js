@@ -9,9 +9,36 @@ const renderColor = (hairColor)=>{
     return colorDiv
 }
 
-const elementAdding=(arr,doc)=>{
+const renderItem = (name,value)=>{
+    const list=document.createElement('li')
+    list.innerHTML=`${name}: ${value}`
+    return list
+}
+
+const elementAdding=(/*arr,*/doc,person)=>{
     const listhead=document.createElement('ul')
-    let i=0
+
+    //using form.elements and arrays
+     Array.from(person).map((input,_i,_formElements)=>{
+        if(input.value){
+            const li=renderItem(input.name,input.value)
+            listhead.appendChild(li)
+        }
+    })
+    //using maps
+    /*Object.keys(person).map((key,i,keys)=>{
+        const li=renderItem(key,person[key])
+        listhead.appendChild(li)
+    })*/
+
+    //using objects
+    /*const keys=Object.keys(person)
+    for(let i=0;i<Object.keys(person).length;i++){
+        let li=renderItem(keys[i],person[keys[i]])
+        listhead.appendChild(li)
+    }*/
+    //my shortened homework code
+    /*let i=0
     for(;i<arr.length-1;i++){
         const em=document.createElement('li')
         if(arr[i].name!='hairColor'){
@@ -22,7 +49,7 @@ const elementAdding=(arr,doc)=>{
             listhead.appendChild(em)
             listhead.appendChild(renderColor(arr[i].value))
         }
-    }
+    }*/
     /*const em=document.createElement('li')
     em.textContent='hair color:'
     listhead.appendChild(em)
@@ -41,9 +68,14 @@ const handleSubmit= (ev) => {
     const form=ev.target
     const details=document.querySelector('.details')
 
-    /*for(let i=0;i<form.length;i++){
-        
+    //hard code things
+    /*const person = {
+        personName: form.name.value,
+        hairColor: renderColor(form.hairColor.value).outerHTML,
+        age: form.age.value,
+        birthplace: form.birthplace.value,
     }*/
+    
     //const personName=form.personName.value
     //const hairColor=form.hairColor.value
     /*const age=form.age.value
@@ -63,8 +95,8 @@ const handleSubmit= (ev) => {
     const birthWords=document.createElement('li')
     birthWords.textContent='Birthplace: '+birthplace*/
 
-    elementAdding(form,details)
-
+    elementAdding(/*form*/details,form.elements)
+    //using innerHTML
     /*details.innerHTML=`
         <ul>
             <li>Name: ${personName}</li>
