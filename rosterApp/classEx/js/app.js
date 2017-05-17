@@ -2,6 +2,8 @@ $(document).foundation()
 
 const megaroster={
     max:0,
+    studentList:document.querySelector('#student-list'),
+    students:[],
 
     init(){
         //can put this.max=0 here to replace max above
@@ -18,11 +20,19 @@ const megaroster={
             name:f.studentName.value,
         }
         
-        this.buildListItem(student)
+        this.students.reverse()
+        this.students.push(student)
+        this.students.reverse()
+        const li=this.buildListItem(student)
+        this.studentList.insertBefore(li,this.studentList.firstChild)
+        f.studentName.value=''
     },
 
     buildListItem(student){
-        console.log(student)
+        const li=document.createElement('li')
+        li.textContent=student.name
+        li.dataset.id=student.id
+        return li
     },
 }
 megaroster.init()
