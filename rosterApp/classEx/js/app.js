@@ -25,7 +25,7 @@ const megaroster={
         this.students.reverse()
         const li=this.buildListItem(student)
         this.studentList.insertBefore(li,this.studentList.firstChild)
-        f.studentName.value=''
+        f.reset()
     },
 
     buildListItem(student){
