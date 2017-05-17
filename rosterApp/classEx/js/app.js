@@ -7,6 +7,10 @@ const megaroster={
 
     init(){
         //can put this.max=0 here to replace max above
+       this.setupEventListeners()
+    },
+
+    setupEventListeners(){
         document
             .querySelector('#new-student')
             .addEventListener('submit',this.addStudent.bind(this))
@@ -31,10 +35,25 @@ const megaroster={
     },
 
     buildListItem(student){
-        const li=document.createElement('li')
-        li.textContent=student.name
+        const template=document.querySelector('.student.template')
+        const li=template.cloneNode(true)
+        li.querySelector('.student-name').textContent=student.name
+        li.className=li.className.replace('template','')
         li.dataset.id=student.id
+
+        li
+            .querySelector('button.remove')
+            .addEventListener('click',this.removeStudent.bind(this))
+
         return li
+    },
+
+    removeStudent(ev){
+        const btn=event.target
+        //experimental, wont work with android
+        btn.closest('.student').remove()
+        //TODO: figure out this
+        //this.students.splice(,1)
     },
 }
 megaroster.init()
