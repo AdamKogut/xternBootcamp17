@@ -31,7 +31,10 @@ const App={
         ev.preventDefault()
         const form=ev.target
         const details=document.querySelector('.listing')
+        const current=details.innerHTML
+        details.innerHTML=``
         this.elementAdding(/*form*/details,form.elements)
+        details.innerHTML+=current
     },
 }
 App.init()
