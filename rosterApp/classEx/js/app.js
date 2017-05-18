@@ -1,11 +1,10 @@
 $(document).foundation()
 
-const megaroster={
-    max:0,
-    studentList:document.querySelector('#student-list'),
+class megaroster{
 
-    init(){
-        //can put this.max=0 here to replace max above
+    constructor(){
+        this.max=0
+        this.studentList=document.querySelector('#student-list')
        this.setupEventListeners()
        if(JSON.parse(localStorage.getItem('roster'))){
            this.students=JSON.parse(localStorage.getItem('roster'))
@@ -20,13 +19,13 @@ const megaroster={
        }else{
            this.students=[]
        }
-    },
+    }
 
     setupEventListeners(){
         document
             .querySelector('#new-student')
             .addEventListener('submit',this.addStudent.bind(this))
-    },
+    }
 
     addStudent(ev){
         ev.preventDefault()
@@ -46,11 +45,11 @@ const megaroster={
             this.max=student.id
 
         localStorage.setItem('roster',JSON.stringify(this.students))
-    },
+    }
 
     prependChild(parent,child){
         parent.insertBefore(child,parent.firstChild)
-    },
+    }
 
     buildListItem(student){
         const template=document.querySelector('.student.template')
@@ -67,7 +66,7 @@ const megaroster={
             .addEventListener('click',this.promoteStudent.bind(this))
 
         return li
-    },
+    }
 
     removeStudent(ev){
         const btn=event.target
@@ -83,7 +82,7 @@ const megaroster={
             }
         }
         localStorage.setItem('roster',JSON.stringify(this.students))
-    },
+    }
 
     promoteStudent(ev){
         const btn=event.target
@@ -101,6 +100,6 @@ const megaroster={
             }
         }
         localStorage.setItem('roster',JSON.stringify(this.students))
-    },
+    }
 }
-megaroster.init()
+const roster=new megaroster()
