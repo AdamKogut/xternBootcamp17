@@ -12,7 +12,7 @@ const megaroster={
            for(let i=this.students.length-1;i>=0;i--){
                const li=this.buildListItem(this.students[i])
                if(this.students[i].promoted){
-                    li.className=li.className.replace('check','created')
+                    li.classList.add('promoted')
                }
                this.prependChild(this.studentList,li)
                
@@ -56,6 +56,7 @@ const megaroster={
         const template=document.querySelector('.student.template')
         const li=template.cloneNode(true)
         li.querySelector('.student-name').textContent=student.name
+        li.setAttribute('title',student.name)
         li.className=li.className.replace('template','')
         li.dataset.id=student.id
 
@@ -71,19 +72,32 @@ const megaroster={
     removeStudent(ev){
         const btn=event.target
         //experimental, wont work with android
-        const num=btn.closest('.student').dataset.id
         btn.closest('.student').remove()
         //TODO: figure out this
-        this.students.splice(this.studentList.length+1-num,1)
+        const li=btn.closest('.student')
+        for(let i=0;i<this.students.length;i++){
+            let currId=this.students[i].id.toString()
+            if(currId===li.dataset.id){
+                this.students.splice(i,1)
+                break
+            }
+        }
         localStorage.setItem('roster',JSON.stringify(this.students))
     },
 
     promoteStudent(ev){
         const btn=event.target
-        btn.closest('.student').className=btn.closest('.student').className.replace('check','created')
+        const li=btn.closest('.student')
         for(let i=0;i<this.students.length;i++){
             if(this.students[i].id==btn.closest('.student').dataset.id){
-                this.students[i].promoted=true
+                this.students[i].promoted=!this.students[i].promoted
+                if(this.students[i].promoted){
+                    li.classList.add('promoted')
+                    this.students[i].promoted=true
+                }else{
+                    li.classList.remove('promoted')
+                    this.students[i].promoted=false
+                }
             }
         }
         localStorage.setItem('roster',JSON.stringify(this.students))

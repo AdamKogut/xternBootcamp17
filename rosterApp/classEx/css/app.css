@@ -18,10 +18,16 @@
 }
 
 .student-name{
-    line-height: 38px;
+    float: left;
+    white-space: nowrap;
+    overflow-x: hidden;
+    width: 5rem;
+    text-overflow: ellipsis;
+    width: calc(100%-110px)
 }
 
-.created{
-    background-color: black;
+.promoted{
+    background-color: gold;
     color: white;
+    border-color:black;
 }
