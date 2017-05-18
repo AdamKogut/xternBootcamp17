@@ -28,6 +28,8 @@ const megaroster={
         const li=this.buildListItem(student)
         this.prependChild(this.studentList,li)
         f.reset()
+
+        localStorage.setItem('roster',JSON.stringify(this.students))
     },
 
     prependChild(parent,child){
