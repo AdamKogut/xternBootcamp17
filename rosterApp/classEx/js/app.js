@@ -44,6 +44,8 @@ const megaroster={
         li
             .querySelector('button.remove')
             .addEventListener('click',this.removeStudent.bind(this))
+        li.querySelector('button.promote')
+            .addEventListener('click',this.promoteStudent.bind(this))
 
         return li
     },
@@ -51,9 +53,15 @@ const megaroster={
     removeStudent(ev){
         const btn=event.target
         //experimental, wont work with android
+        const num=btn.closest('.student').dataset.id
         btn.closest('.student').remove()
         //TODO: figure out this
-        //this.students.splice(,1)
+        this.students.splice(this.studentList.length+1-num,1)
+    },
+
+    promoteStudent(ev){
+        const btn=event.target
+        btn.closest('.student').className=btn.closest('.student').className.replace('check','created')
     },
 }
 megaroster.init()
