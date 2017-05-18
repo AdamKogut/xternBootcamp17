@@ -3,11 +3,18 @@ $(document).foundation()
 const megaroster={
     max:0,
     studentList:document.querySelector('#student-list'),
-    students:[],
 
     init(){
         //can put this.max=0 here to replace max above
        this.setupEventListeners()
+       if(JSON.parse(localStorage.getItem('roster'))!=null){
+           this.students=JSON.parse(localStorage.getItem('roster'))
+           for(let i=0;i<this.students.length;i++){
+               this.prependChild(this.studentList,this.buildListItem(this.students[i]))
+           }
+       }else{
+           this.students=[]
+       }
     },
 
     setupEventListeners(){
