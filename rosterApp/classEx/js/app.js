@@ -7,10 +7,15 @@ const megaroster={
     init(){
         //can put this.max=0 here to replace max above
        this.setupEventListeners()
-       if(JSON.parse(localStorage.getItem('roster'))!=null){
+       if(JSON.parse(localStorage.getItem('roster'))){
            this.students=JSON.parse(localStorage.getItem('roster'))
-           for(let i=0;i<this.students.length;i++){
-               this.prependChild(this.studentList,this.buildListItem(this.students[i]))
+           for(let i=this.students.length-1;i>=0;i--){
+               const li=this.buildListItem(this.students[i])
+               if(this.students[i].promoted){
+                    li.className=li.className.replace('check','created')
+               }
+               this.prependChild(this.studentList,li)
+               
            }
        }else{
            this.students=[]
@@ -29,12 +34,16 @@ const megaroster={
         const student={
             id: ++this.max,
             name:f.studentName.value,
+            promoted:false,
         }
         
         this.students.unshift(student)
         const li=this.buildListItem(student)
         this.prependChild(this.studentList,li)
         f.reset()
+
+        if(student.id>this.max)
+            this.max=student.id
 
         localStorage.setItem('roster',JSON.stringify(this.students))
     },
@@ -72,6 +81,12 @@ const megaroster={
     promoteStudent(ev){
         const btn=event.target
         btn.closest('.student').className=btn.closest('.student').className.replace('check','created')
+        for(let i=0;i<this.students.length;i++){
+            if(this.students[i].id==btn.closest('.student').dataset.id){
+                this.students[i].promoted=true
+            }
+        }
+        localStorage.setItem('roster',JSON.stringify(this.students))
     },
 }
 megaroster.init()
