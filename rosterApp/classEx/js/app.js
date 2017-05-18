@@ -59,13 +59,55 @@ class megaroster{
         li.className=li.className.replace('template','')
         li.dataset.id=student.id
 
+        this.setupActions(li,student).bind(this)
+
+        return li
+    }
+
+    setupActions(li,student){
         li
             .querySelector('button.remove')
             .addEventListener('click',this.removeStudent.bind(this))
         li.querySelector('button.promote')
             .addEventListener('click',this.promoteStudent.bind(this))
+        li.querySelector('button.up')
+            .addEventListener('click',this.moveUp.bind(this))
+        li.querySelector('button.down')
+            .addEventListener('click',this.moveDown.bind(this))
+    }
 
-        return li
+    moveUp(student,ev){
+        const btn=ev.target
+        const li=btn.closest('.student')
+
+        const index=this.students.findIndex((currentStudent,i)=>{
+            return currentStudent.id===student.id
+        })
+        if(index>0){
+            const pstudent=this.students[index-1]
+            this.students[index-1]=this.students[index]
+            this.students[index]=pstudent
+
+            this.studentList.insertBefore(li,li.previousElementSibling)
+        }
+        localStorage.setItem('roster',JSON.stringify(this.students))
+    }
+
+    moveDown(student,ev){
+        const btn=ev.target
+        const li=btn.closest('.student')
+
+        const index=this.students.findIndex((currentStudent,i)=>{
+            return currentStudent.id===student.id
+        })
+        if(index<this.students.length){
+            const pstudent=this.students[index+1]
+            this.students[index+1]=this.students[index]
+            this.students[index]=pstudent
+
+            this.studentList.insertBefore(li,li.nextElementSibling)
+        }
+        localStorage.setItem('roster',JSON.stringify(this.students))
     }
 
     removeStudent(ev){

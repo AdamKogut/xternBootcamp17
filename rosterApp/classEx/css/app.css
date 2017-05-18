@@ -23,11 +23,23 @@
     overflow-x: hidden;
     width: 5rem;
     text-overflow: ellipsis;
-    width: calc(100%-110px)
+    width: calc(100%-195px)
 }
 
 .promoted{
     background-color: gold;
     color: white;
     border-color:black;
+}
+
+.student:first-child button.moveUp{
+    background-color: #ddd;
+    color:#eee;
+    cursor:not-allowed;
+}
+
+.student:last-child button.moveDown{
+    background-color: #ddd;
+    color:#eee;
+    cursor:not-allowed;
 }
