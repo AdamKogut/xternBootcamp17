@@ -59,6 +59,7 @@ const megaroster={
         btn.closest('.student').remove()
         //TODO: figure out this
         this.students.splice(this.studentList.length+1-num,1)
+        localStorage.setItem('roster',JSON.stringify(this.students))
     },
 
     promoteStudent(ev){
