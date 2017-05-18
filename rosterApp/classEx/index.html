@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Megaroster</title>
     <link rel="stylesheet" href="css/foundation.css">
+    <link rel="stylesheet" href="css\font-awesome.min.css">
     <link rel="stylesheet" href="css/app.css">
   </head>
   <body>
@@ -33,8 +34,12 @@
             <ul id="student-list"><!--typed 'ul#student-list' then tab-->
                 <li class="student template check">
                     <span class="student-name"></span>
-                    <button class="promote button">Promote</button>
-                    <button class="remove alert button">Remove</button>
+                    <span class="action button-group">
+                        <button class="up button">Up</button>
+                        <button class="down button">Down</button>
+                        <button class="promote button"><i class="fa fa-star-o"></i></button>
+                        <button class="remove alert button"><i class="fa fa-trash-o"></i></button>
+                    </span>
                 </li>
             </ul>
         </div>

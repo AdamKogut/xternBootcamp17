@@ -5,18 +5,23 @@
 .student{
     border: 2px solid black;
     list-style-type:none;
-    padding:2px 7px 18px 7px
+    padding: .75rem 1.25rem;
+}
+
+.student + .student{
+    border-top:0;
 }
 
 .button{
     float:right;
+    margin-bottom:0;
+}
+
+.student-name{
+    line-height: 38px;
 }
 
 .created{
     background-color: black;
     color: white;
-}
-
-li{
-    margin-top:8px;
 }
