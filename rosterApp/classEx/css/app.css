@@ -32,13 +32,13 @@
     border-color:black;
 }
 
-.student:first-child button.moveUp{
-    background-color: #ddd;
-    color:#eee;
-    cursor:not-allowed;
+.student:first-child button.up {
+  background-color: #ddd;
+  color: #eee;
+  cursor: not-allowed;
 }
 
-.student:last-child button.moveDown{
+.student:nth-last-child(2) button.down{
     background-color: #ddd;
     color:#eee;
     cursor:not-allowed;

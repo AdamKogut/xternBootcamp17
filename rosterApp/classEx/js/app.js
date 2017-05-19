@@ -1,9 +1,7 @@
 $(document).foundation()
 
 class megaroster{
-
     constructor(){
-        this.max=0
         this.studentList=document.querySelector('#student-list')
        this.setupEventListeners()
        if(JSON.parse(localStorage.getItem('roster'))){
@@ -16,8 +14,10 @@ class megaroster{
                this.prependChild(this.studentList,li)
                
            }
+           this.max=JSON.parse(localStorage.getItem('maxNum'))
        }else{
            this.students=[]
+           this.max=0
        }
     }
 
@@ -30,8 +30,9 @@ class megaroster{
     addStudent(ev){
         ev.preventDefault()
         const f=ev.target
+        this.max++
         const student={
-            id: ++this.max,
+            id: this.max,
             name:f.studentName.value,
             promoted:false,
         }
@@ -43,7 +44,7 @@ class megaroster{
 
         if(student.id>this.max)
             this.max=student.id
-
+        localStorage.setItem('maxNum',JSON.stringify(this.max))
         localStorage.setItem('roster',JSON.stringify(this.students))
     }
 
@@ -56,10 +57,10 @@ class megaroster{
         const li=template.cloneNode(true)
         li.querySelector('.student-name').textContent=student.name
         li.setAttribute('title',student.name)
-        li.className=li.className.replace('template','')
+        li.className=li.className.replace('template','').trim()
         li.dataset.id=student.id
 
-        this.setupActions(li,student).bind(this)
+        this.setupActions(li,student)
 
         return li
     }
@@ -71,17 +72,17 @@ class megaroster{
         li.querySelector('button.promote')
             .addEventListener('click',this.promoteStudent.bind(this))
         li.querySelector('button.up')
-            .addEventListener('click',this.moveUp.bind(this))
+            .addEventListener('click',this.moveUp.bind(this,student))
         li.querySelector('button.down')
-            .addEventListener('click',this.moveDown.bind(this))
+            .addEventListener('click',this.moveDown.bind(this,student))
     }
 
     moveUp(student,ev){
         const btn=ev.target
         const li=btn.closest('.student')
 
-        const index=this.students.findIndex((currentStudent,i)=>{
-            return currentStudent.id===student.id
+        const index=this.students.findIndex((currentStudent,i) => {
+            return currentStudent.id==student.id
         })
         if(index>0){
             const pstudent=this.students[index-1]
@@ -89,8 +90,9 @@ class megaroster{
             this.students[index]=pstudent
 
             this.studentList.insertBefore(li,li.previousElementSibling)
+            localStorage.setItem('roster',JSON.stringify(this.students))
         }
-        localStorage.setItem('roster',JSON.stringify(this.students))
+        
     }
 
     moveDown(student,ev){
@@ -100,12 +102,12 @@ class megaroster{
         const index=this.students.findIndex((currentStudent,i)=>{
             return currentStudent.id===student.id
         })
-        if(index<this.students.length){
+        if(index<this.students.length-1){
             const pstudent=this.students[index+1]
             this.students[index+1]=this.students[index]
             this.students[index]=pstudent
 
-            this.studentList.insertBefore(li,li.nextElementSibling)
+            this.studentList.insertBefore(li,li.nextElementSibling.nextElementSibling)
         }
         localStorage.setItem('roster',JSON.stringify(this.students))
     }
