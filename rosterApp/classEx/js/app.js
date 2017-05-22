@@ -25,6 +25,9 @@ class megaroster{
         document
             .querySelector('#new-student')
             .addEventListener('submit',this.addStudent.bind(this))
+        document
+            .querySelector('.student-name')
+            .addEventListener('submit',this.changeName.bind(this))
     }
 
     addStudent(ev){
@@ -46,6 +49,18 @@ class megaroster{
             this.max=student.id
         localStorage.setItem('maxNum',JSON.stringify(this.max))
         localStorage.setItem('roster',JSON.stringify(this.students))
+    }
+
+    changeName(student,ev){
+        const f=ev.target
+        const li=f.closest('.student-name')
+        for(let i=0;i<this.students.length;i++){
+            if(student.name===this.students[i].name){
+                student.name=li.innerHTML
+                this.students[i].name=li.innerHTML
+                localStorage.setItem('roster',JSON.stringify(this.students))
+            }
+        }
     }
 
     prependChild(parent,child){
@@ -75,6 +90,8 @@ class megaroster{
             .addEventListener('click',this.moveUp.bind(this,student))
         li.querySelector('button.down')
             .addEventListener('click',this.moveDown.bind(this,student))
+        li.querySelector('.student-name')
+            .addEventListener('blur',this.changeName.bind(this, student))
     }
 
     moveUp(student,ev){

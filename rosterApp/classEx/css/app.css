@@ -23,7 +23,7 @@
     overflow-x: hidden;
     width: 5rem;
     text-overflow: ellipsis;
-    width: calc(100%-195px)
+    width: calc(100%-195px);
 }
 
 .promoted{
