@@ -32,14 +32,18 @@
     border-color:black;
 }
 
-.student:first-child button.up {
-  background-color: #ddd;
-  color: #eee;
-  cursor: not-allowed;
-}
-
+.student:first-child button.up,
 .student:nth-last-child(2) button.down{
     background-color: #ddd;
     color:#eee;
     cursor:not-allowed;
+}
+
+[contenteditable]:hover{
+    outline-color: -webkit-focus-ring-color;
+    outline-style: auto;
+    outline-width: 2px;
+}
+[contenteditable]:focus{
+    outline-width:5px;
 }
