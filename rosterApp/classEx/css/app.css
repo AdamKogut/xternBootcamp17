@@ -51,6 +51,21 @@ h2{
     outline-style: auto;
     outline-width: 2px;
 }
+
 [contenteditable]:focus{
     outline-width:5px;
+}
+
+.actions .button {
+  padding: 0.5em 0.69em 0.5em 0.64em;
+  font-size: 1.2rem;
+}
+
+.actions .button:hover{
+    transform: scale(1.1)
+}
+
+.button.expanded,
+.button.expanded:hover{
+    color: white;
 }
