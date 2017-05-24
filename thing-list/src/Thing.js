@@ -3,7 +3,7 @@ import './Thing.css'
 
 const Thing=({thing})=>{
     return(
-        <li className="thing">
+        <li className="Thing">
           <input type="checkbox" value="on"/>
           <div className="details">
             <div className="name">

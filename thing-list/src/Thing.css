@@ -1,4 +1,6 @@
-.thing {
+@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css);
+
+.Thing {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-align: center;
@@ -6,11 +8,21 @@
   border-bottom: 1px solid #F1F1F1;
 }
 
-.thing:last-child {
+.Thing:last-child {
   border-bottom: none;
 }
 
-.thing .details {
+
+input:checked + .details {
+  background:#F9F9F9;
+  text-decoration: line-through;
+}
+
+input[type="checkbox"] {
+  margin: 20px;
+}
+
+.Thing .details {
   margin: 0;
   padding: 20px;
   -webkit-transition: background 0.2s;
@@ -28,7 +40,7 @@
       align-items: center;
 }
 
-.thing .name {
+.Thing .name {
   -ms-flex: 1 1 0%;
       flex: 1 1 0%;
 }
@@ -41,7 +53,7 @@
   margin: -10px 0;
 }
 
-.thing:hover .actions {
+.Thing:hover .actions {
   opacity: 1;
 }
 
