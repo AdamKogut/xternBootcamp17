@@ -8,17 +8,21 @@ import AddThings from './AddThings'
 class App extends Component {
   state = {
     things: {
-      'thing-1': { id: 'thing-1', name: 'Milk' },
-      'thing-2': { id: 'thing-2', name: 'Bread' },
-      'thing-3': { id: 'thing-3', name: 'Bibb lettuce' },
+      
     }
+  }
+
+  saveThing=(thing)=>{
+    const things={...this.state.things}
+    things[thing.id]=thing
+    this.setState({things})
   }
 
   addThing=()=>{
     const things = {...this.state.things}
     const thing={
-      id:'thing-4',
-      name:'hot dogs',
+      id: `thing-${Date.now()}`,
+      name: '',
     }
     things[thing.id]=thing
     this.setState({things})
@@ -29,7 +33,7 @@ class App extends Component {
       <div className="App">
         <Header />
         <AddThings addThing={this.addThing}/>
-        <ThingList things={this.state.things} />
+        <ThingList saveThing={this.saveThing} things={this.state.things} />
 
         
       </div>
