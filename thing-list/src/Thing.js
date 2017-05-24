@@ -14,13 +14,25 @@ class Thing extends Component{
     saveThing(thing)
   }
 
+  blurOnEnter=(ev)=>{
+    if(ev.key==='Enter'){
+      ev.preventDefault()
+      ev.target.blur()
+    }
+  }
+
   render(){
     const {thing,removeThing}=this.props
     return(
         <li className="Thing">
           <input type="checkbox" value="on"/>
           <div className="details">
-            <ContentEditable className="name" html={thing.name} onChange={this.updateName} ref={input=>this.nameInput=input}/>
+            <ContentEditable 
+              className="name" 
+              html={thing.name} 
+              onChange={this.updateName} 
+              ref={input=>this.nameInput=input}
+              onKeyPress={this.blurOnEnter}/>
             <Actions thing={thing} removeThing={removeThing}/>
           </div>
         </li>
