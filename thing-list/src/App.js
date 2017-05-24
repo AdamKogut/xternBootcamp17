@@ -12,6 +12,12 @@ class App extends Component {
     }
   }
 
+  removeThing=(thing)=>{
+    const things={...this.state.things}
+    delete things[thing.id]
+    this.setState({things})
+  }
+
   saveThing=(thing)=>{
     const things={...this.state.things}
     things[thing.id]=thing
@@ -29,11 +35,15 @@ class App extends Component {
   }
 
   render() {
+    const actions={
+      saveThing:this.saveThing,
+      removeThing:this.removeThing,
+    }
     return (
       <div className="App">
         <Header />
         <AddThings addThing={this.addThing}/>
-        <ThingList saveThing={this.saveThing} things={this.state.things} />
+        <ThingList things={this.state.things} {...actions}/>
 
         
       </div>
