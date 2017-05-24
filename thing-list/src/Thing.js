@@ -17,7 +17,9 @@ class Thing extends Component{
   blurOnEnter=(ev)=>{
     if(ev.key==='Enter'){
       ev.preventDefault()
-      ev.target.blur()
+      const {addThing}=this.props
+      addThing()
+      //ev.target.blur()
     }
   }
 

@@ -38,6 +38,7 @@ class App extends Component {
     const actions={
       saveThing:this.saveThing,
       removeThing:this.removeThing,
+      addThing:this.addThing,
     }
     return (
       <div className="App">
