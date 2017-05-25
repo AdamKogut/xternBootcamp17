@@ -46,18 +46,11 @@ class App extends Component {
     this.setState({things})
   }
 
-  completed=(thing)=>{
-    const things={...this.state.things}
-    things[thing.id].completed=!things[thing.id].completed
-    this.setState({things})
-  }
-
   render() {
     const actions={
       saveThing:this.saveThing,
       removeThing:this.removeThing,
       addThing:this.addThing,
-      completed:this.completed,
     }
     return (
       <div className="App">
