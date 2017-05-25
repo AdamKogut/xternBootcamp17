@@ -4,7 +4,7 @@ import './App.css';
 import Header from './Header'
 import ThingList from './ThingList'
 import AddThings from './AddThings'
-import base from './base'
+import base,{auth} from './base'
 import SignOut from './SignOut'
 import SignIn from './SignIn'
 
@@ -15,11 +15,11 @@ class App extends Component {
   }
 
   componentWillMount(){
-    base.syncState(
-      'things',
-      {
-        context:this,
-        state:'things',
+    auth.onAuthStateChanged(
+      (user)=>{
+        if(user){
+          this.authHandler({user})
+        }
       }
     )
   }
@@ -37,7 +37,17 @@ class App extends Component {
   }
 
   authHandler=(authData)=>{
-    this.setState({uid:authData.user.uid})
+    this.setState({uid:authData.user.uid}, this.syncThings)
+  }
+
+  syncThings=()=>{
+    base.syncState(
+      'things',
+      {
+        context:this,
+        state:'things',
+      }
+    )
   }
 
   addThing=()=>{
@@ -52,8 +62,12 @@ class App extends Component {
     this.setState({things})
   }
 
-  SignedIn=()=>{
+  signedIn=()=>{
     return this.state.uid
+  }
+
+  signOut=()=>{
+    auth.signOut().then(()=>this.setState({uid:null})).then(alert('Success!'))
   }
 
   renderMain=()=>{
@@ -64,7 +78,7 @@ class App extends Component {
     }
     return (
       <div>
-        <SignOut />
+        <SignOut signOut={this.signOut}/>
         <AddThings addThing={this.addThing}/>
         <ThingList things={this.state.things} {...actions}/>
       </div>
@@ -75,7 +89,7 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
-        {this.SignedIn() ? this.renderMain():<SignIn authHandler={this.authHandler}/>}
+        {this.signedIn() ? this.renderMain():<SignIn authHandler={this.authHandler}/>}
       </div>
     );
   }

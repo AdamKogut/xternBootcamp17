@@ -5,7 +5,7 @@ import './SignIn.css'
 
 const SignIn=({authHandler})=>{
     const authenticate=(provider)=>{
-        auth.signInWithPopup(provider).then(authHandler)
+        auth.signInWithPopup(provider)
     }
 
     return(
