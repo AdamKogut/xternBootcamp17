@@ -5,6 +5,7 @@ import Header from './Header'
 import ThingList from './ThingList'
 import AddThings from './AddThings'
 import base from './base'
+import SignOut from './SignOut'
 
 class App extends Component {
   componentWillMount(){
@@ -56,6 +57,7 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
+        <SignOut />
         <AddThings addThing={this.addThing}/>
         <ThingList things={this.state.things} {...actions}/>
 
