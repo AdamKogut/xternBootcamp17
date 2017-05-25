@@ -9,6 +9,11 @@ import SignOut from './SignOut'
 import SignIn from './SignIn'
 
 class App extends Component {
+  state = {
+    things: {},
+    uid:null,
+  }
+
   componentWillMount(){
     base.syncState(
       'things',
@@ -17,12 +22,6 @@ class App extends Component {
         state:'things',
       }
     )
-  }
-
-  state = {
-    things: {
-      
-    }
   }
 
   removeThing=(thing)=>{
@@ -35,6 +34,10 @@ class App extends Component {
     const things={...this.state.things}
     things[thing.id]=thing
     this.setState({things})
+  }
+
+  authHandler=(authData)=>{
+    this.setState({uid:authData.user.uid})
   }
 
   addThing=()=>{
@@ -50,7 +53,7 @@ class App extends Component {
   }
 
   SignedIn=()=>{
-    return false
+    return this.state.uid
   }
 
   renderMain=()=>{
@@ -72,7 +75,7 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
-        {this.SignedIn() ? this.renderMain():<SignIn />}
+        {this.SignedIn() ? this.renderMain():<SignIn authHandler={this.authHandler}/>}
       </div>
     );
   }
