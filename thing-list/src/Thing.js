@@ -25,11 +25,23 @@ class Thing extends Component{
     }
   }
 
+  changeComplete=(ev)=>{
+    const {thing,completed}=this.props
+    completed(thing)
+  }
+
+  checkIfChecked=(thing)=>{
+    if(thing.completed){
+      return 'checked'
+    }else
+      return ''
+  }
+
   render(){
     const {thing,removeThing}=this.props
     return(
         <li className="Thing">
-          <input type="checkbox" value="on"/>
+          <input type="checkbox" checked={this.checkIfChecked(thing)} onClick={this.changeComplete}/>
           <div className="details">
             <ContentEditable 
               className="name" 

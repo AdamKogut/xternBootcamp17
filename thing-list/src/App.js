@@ -40,8 +40,15 @@ class App extends Component {
     const thing={
       id: `thing-${Date.now()}`,
       name: '',
+      completed:false,
     }
     things[thing.id]=thing
+    this.setState({things})
+  }
+
+  completed=(thing)=>{
+    const things={...this.state.things}
+    things[thing.id].completed=!things[thing.id].completed
     this.setState({things})
   }
 
@@ -50,6 +57,7 @@ class App extends Component {
       saveThing:this.saveThing,
       removeThing:this.removeThing,
       addThing:this.addThing,
+      completed:this.completed,
     }
     return (
       <div className="App">
