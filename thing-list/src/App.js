@@ -49,21 +49,30 @@ class App extends Component {
     this.setState({things})
   }
 
-  render() {
+  SignedIn=()=>{
+    return false
+  }
+
+  renderMain=()=>{
     const actions={
       saveThing:this.saveThing,
       removeThing:this.removeThing,
       addThing:this.addThing,
     }
     return (
-      <div className="App">
-        <Header />
-        <SignIn />
+      <div>
         <SignOut />
         <AddThings addThing={this.addThing}/>
         <ThingList things={this.state.things} {...actions}/>
+      </div>
+    )
+  }
 
-        
+  render() { 
+    return (
+      <div className="App">
+        <Header />
+        {this.SignedIn() ? this.renderMain():<SignIn />}
       </div>
     );
   }
